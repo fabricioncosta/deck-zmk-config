@@ -1,0 +1,82 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/rgb.h>
+
+/ {
+    behaviors {
+        ht_es: mod_tap {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&kp>, <&kp>;
+
+            display-name = "Mod-Tap";
+        };
+    };
+
+    combos {
+        compatible = "zmk,combos";
+
+        capsl {
+            bindings = <&kt CLCK>;
+            key-positions = <24 35>;
+            layers = <0>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+&kp TAB    &kp Q           &kp W              &kp E              &kp R        &kp T        &kp Y    &kp U               &kp I                   &kp O             &kp P         &lt 3 DEL
+&kp LALT   &ht_es LCTRL A  &ht_es LEFT_GUI S  &ht_es LEFT_ALT D  &kp F        &kp G        &kp H    &mt CARET J         &mt TILDE K             &kp L             &mt SQT SEMI  &kp SQT
+&kp LSHFT  &kp Z           &kp X              &mt LCTRL C        &kp V        &kp B        &kp N    &ht_es RIGHT_ALT M  &ht_es RIGHT_GUI COMMA  &ht_es RCTRL DOT  &kp FSLH      &kp LSHFT
+                                              &lt 1 BACKSPACE    &lt 4 SPACE  &kp ENTER    &kp RET  &kp SPACE           &lt 2 BACKSPACE
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+        };
+
+        lower_layer {
+            bindings = <
+&kp GRAVE  &kp N1    &kp N2  &kp N3    &kp N4    &kp N5       &kp N6     &kp N7    &kp N8     &kp N9    &kp N0    &kp MINUS
+&kp TILDE  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS  &kp ASTRK  &kp LPAR  &kp RPAR  &kp UNDER
+&kp ESC    &kp F1    &kp F2  &kp F3    &kp F4    &kp F5       &kp F6     &kp F7    &kp F8     &kp F9    &kp F10   &kp F11
+                             &trans    &trans    &trans       &trans     &trans    &trans
+            >;
+        };
+
+        raise_layer {
+            bindings = <
+&trans  &trans  &kp N7  &kp N8  &kp N9  &kp ASTRK    &kp INSERT  &kp HOME  &kp UP    &kp END    &kp PGUP  &trans
+&trans  &trans  &kp N4  &kp N5  &kp N6  &kp PLUS     &trans      &kp LEFT  &kp DOWN  &kp RIGHT  &kp PGDN  &trans
+&trans  &kp N0  &kp N1  &kp N2  &kp N3  &kp DOT      &trans      &trans    &trans    &trans     &trans    &trans
+                        &trans  &trans  &trans       &trans      &trans    &trans
+            >;
+        };
+
+        bluetooth_layer {
+            bindings = <
+&bt BT_CLR_ALL  &bt BT_CLR     &trans         &trans         &out OUT_USB    &out OUT_BLE     &ext_power EP_TOG  &rgb_ug RGB_TOG  &rgb_ug RGB_EFF  &rgb_ug RGB_COLOR_HSB(66,100,49)  &trans           &trans
+&bt BT_SEL 4    &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3    &bt BT_SEL 4     &rgb_ug RGB_BRI    &rgb_ug RGB_SAI  &rgb_ug RGB_SPI  &rgb_ug RGB_COLOR_HSB(0,100,50)   &rgb_ug RGB_HUI  &trans
+&bt BT_DISC 4   &bt BT_DISC 0  &bt BT_DISC 1  &bt BT_DISC 2  &bt BT_DISC 3   &bt BT_DISC 4    &rgb_ug RGB_BRD    &rgb_ug RGB_SAD  &rgb_ug RGB_SPD  &rgb_ug RGB_COLOR_HSB(117,87,47)  &rgb_ug RGB_HUD  &trans
+                                              &bootloader    &studio_unlock  &trans           &trans             &trans           &bootloader
+            >;
+        };
+
+        prog {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LS(LPAR)  &kp LS(RPAR)  &kp EQUAL     &kp LS(STAR)  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LS(LBRC)  &kp LS(RBRC)  &kp LS(PLUS)  &kp LS(PIPE)  &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans  &kp LBKT      &kp RBKT      &kp MINUS     &kp BSLH      &trans
+                        &trans  &trans  &trans    &trans  &trans        &trans
+            >;
+        };
+    };
+};
+

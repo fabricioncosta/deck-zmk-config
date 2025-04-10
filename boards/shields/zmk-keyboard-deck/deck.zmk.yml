@@ -1,0 +1,14 @@
+file_format: "1"
+id: deck
+name: deck
+type: shield
+url: https://github.com/foostan/crkbd/
+requires: [pro_micro]
+features:
+  - keys
+  - underglow
+  - studio
+  - encoder
+siblings:
+  - deck_left
+  - deck_right
